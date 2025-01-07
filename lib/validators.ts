@@ -10,11 +10,11 @@ const currency = z
 
 // Schema for inserting products
 export const insertProductSchema = z.object({
-  name: z.string().min(1, "Name must ba at leat 1 characters"),
-  slug: z.string().min(1, "Slug must ba at leat 1 characters"),
-  category: z.string().min(1, "Category must ba at leat 1 characters"),
-  brand: z.string().min(1, "Brand must ba at leat 1 characters"),
-  description: z.string().min(1, "Description must ba at leat 1 characters"),
+  name: z.string().min(1, "Name must ba at least 1 character"),
+  slug: z.string().min(1, "Slug must ba at least 1 character"),
+  category: z.string().min(1, "Category must ba at least 1 character"),
+  brand: z.string().min(1, "Brand must ba at leat 1 character"),
+  description: z.string().min(1, "Description must ba at least 1 character"),
   stock: z.coerce.number(),
   images: z.array(z.string()).min(1, "Product must have at leat one image"),
   isFeatured: z.boolean(),
@@ -27,3 +27,18 @@ export const signInFormSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
+
+// Schema for signing up a user
+export const signUpFormSchema = z
+  .object({
+    name: z.string().min(1, "Name must be at least 1 character"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
