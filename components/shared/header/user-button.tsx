@@ -18,7 +18,7 @@ const UserButton = async () => {
     return (
       <Button asChild>
         <Link href="/sign-in">
-          <UserIcon /> Log In
+          <UserIcon /> Sign In
         </Link>
       </Button>
     );
@@ -56,7 +56,7 @@ const UserButton = async () => {
                 className="w-full py-4 px-2 h-4 justify-start"
                 variant="ghost"
               >
-                Log Out
+                Sign Out
               </Button>
             </form>
           </DropdownMenuItem>

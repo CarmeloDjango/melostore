@@ -15,7 +15,7 @@ import { useFormStatus } from "react-dom";
 const SignUpForm = () => {
   const [data, action] = useActionState(signUpUser, {
     success: false,
-    message: "",
+    message: [],
   });
 
   const searchParams = useSearchParams();
@@ -41,7 +41,6 @@ const SignUpForm = () => {
             id="name"
             name="name"
             type="text"
-            required
             autoComplete="name"
             defaultValue={signUpDefaultValues.name}
           />
@@ -51,8 +50,7 @@ const SignUpForm = () => {
           <Input
             id="email"
             name="email"
-            type="email"
-            required
+            type="text"
             autoComplete="email"
             defaultValue={signUpDefaultValues.email}
           />
@@ -84,7 +82,13 @@ const SignUpForm = () => {
         </div>
 
         {data && !data.success && (
-          <div className="text-center text-destructive">{data.message}</div>
+          <div className="text-center text-destructive">
+            {Array.isArray(data.message) ? (
+              data.message.map((msg, index) => <div key={index}>{msg}</div>)
+            ) : (
+              <div>{data.message}</div>
+            )}
+          </div>
         )}
 
         <div className="text-sm text-center text-muted-foreground">
