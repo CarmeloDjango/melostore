@@ -9,7 +9,7 @@ import { LATEST_PRODUCTS_LIMIT } from "../constants";
 export async function getLatestProducts() {
   const data = await prisma.product.findMany({
     take: LATEST_PRODUCTS_LIMIT,
-    orderBy: { created_at: "desc" },
+    orderBy: { createdAt: "desc" },
   });
 
   return convertToPlainObject(data);
