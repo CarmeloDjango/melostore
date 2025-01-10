@@ -1,3 +1,4 @@
+import AddToCart from "@/components/shared/product/add-to-cart";
 import ProductImages from "@/components/shared/product/product-images";
 import ProductPrice from "@/components/shared/product/product-price";
 
@@ -67,7 +68,16 @@ const ProductDetailPage = async (props: {
                 </div>
                 {product.stock > 0 && (
                   <div className="flex justify-center items-center">
-                    <Button className="w-full">Add To Cart</Button>
+                    <AddToCart
+                      item={{
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        qty: 1,
+                        image: product.images![0],
+                      }}
+                    />
                   </div>
                 )}
               </CardContent>
