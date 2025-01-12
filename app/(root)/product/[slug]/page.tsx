@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { getProductBySlug } from "@/lib/actions/product.actions";
+import { getMyCart } from "@/lib/actions/cart.actions";
 import { notFound } from "next/navigation";
 
 const ProductDetailPage = async (props: {
@@ -16,6 +17,8 @@ const ProductDetailPage = async (props: {
   const product = await getProductBySlug(slug);
 
   if (!product) notFound();
+
+  const cart = await getMyCart();
 
   return (
     <>
@@ -68,6 +71,7 @@ const ProductDetailPage = async (props: {
                 {product.stock > 0 && (
                   <div className="flex justify-center items-center">
                     <AddToCart
+                      cart={cart}
                       item={{
                         productId: product.id,
                         name: product.name,
