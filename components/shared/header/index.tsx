@@ -20,7 +20,7 @@ const Header = () => {
               priority
             />
             <span className="hidden font-bold text-2xl ml-3 lg:block">
-              PROSTORE
+              MeloStore
             </span>
           </Link>
         </div>
