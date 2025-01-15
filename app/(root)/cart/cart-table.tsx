@@ -40,8 +40,8 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
           </Link>
         </div>
       ) : (
-        <div className="grid md:grid-cols-4 md:gap-5 bg-pink-100">
-          <div className="overflow-x-auto md:col-span-3 bg-blue-100">
+        <div className="grid md:grid-cols-4 md:gap-5">
+          <div className="overflow-x-auto md:col-span-3">
             <Table>
               <TableHeader>
                 <TableRow>

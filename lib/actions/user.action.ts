@@ -10,7 +10,7 @@ import { formatError } from "../utils";
 // Sign in the user with credentials
 export async function signInWithCredentials(
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     const user = signInFormSchema.parse({
@@ -75,4 +75,15 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
         : [formattedError],
     };
   }
+}
+
+// Get user by the ID
+export async function getUserById(userId: string) {
+  const user = await prisma.user.findFirst({
+    where: { id: userId },
+  });
+
+  if (!user) throw new Error("User not found");
+
+  return user;
 }
