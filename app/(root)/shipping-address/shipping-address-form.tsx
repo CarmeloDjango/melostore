@@ -11,9 +11,10 @@ import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
 import { shippingAddressSchema } from "@/lib/validators";
 import { shippingAddressDefaultValues } from "@/lib/constants";
+import { updateUserAddress } from "@/lib/actions/user.action";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ControllerRenderProps, useForm } from "react-hook-form";
+import { ControllerRenderProps, useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
 import {
@@ -38,9 +39,23 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
     defaultValues: address || shippingAddressDefaultValues,
   });
 
-  const onSubmit = (values) => {
+  const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (
+    values
+  ) => {
     // values: react-hook-form에서 자동 부여
-    console.log(values);
+    startTransition(async () => {
+      const res = await updateUserAddress(values);
+
+      if (!res.success) {
+        toast({
+          variant: "destructive",
+          description: res.message,
+        });
+        return;
+      }
+
+      router.push("/payment-method");
+    });
   };
 
   return (
