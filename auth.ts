@@ -118,6 +118,23 @@ export const config = {
     },
     // https://authjs.dev/reference/nextjs#authorized
     authorized({ request, auth }: any) {
+      // Array of regex patterns of paths we want to protect
+      const portectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user\/(.*)/,
+        /\/order\/(.*)/,
+        /\/admin/,
+      ];
+
+      // Get the pathname from the url object
+      const { pathname } = request.nextUrl;
+
+      // Check if user is not authenticated and accessing a protected path
+      if (!auth && portectedPaths.some((p) => p.test(pathname))) return false;
+
       // Check for session cart cookie
       if (!request.cookies.get("sessionCartId")) {
         // Genertate new session cart cookie
