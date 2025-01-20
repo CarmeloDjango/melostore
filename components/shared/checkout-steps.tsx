@@ -11,7 +11,7 @@ const CheckoutSteps = ({ current = 0 }) => {
             <div
               className={cn(
                 "p-2 w-56 rounded-full text-center text-sm",
-                index === current ? "bg-blue-100" : ""
+                index === current ? "bg-blue-100 dark:bg-blue-900" : "",
               )}
             >
               {step}
@@ -20,7 +20,7 @@ const CheckoutSteps = ({ current = 0 }) => {
               <hr className="w-16 border-t border-gray-300 mx-2" />
             )}
           </React.Fragment>
-        )
+        ),
       )}
     </div>
   );
