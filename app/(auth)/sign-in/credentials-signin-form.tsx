@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signInDefaultValues } from "@/lib/constants";
 import Link from "next/link";
-import { signInWithCredentials } from "@/lib/actions/user.action";
+import { signInWithCredentials } from "@/lib/actions/user.actions";
 import { useFormStatus } from "react-dom";
 // react19에서 useActionState로 바뀜 (원래 useFormState)
 import { useActionState } from "react";

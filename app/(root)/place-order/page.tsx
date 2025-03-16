@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { auth } from "@/auth";
-import { getUserById } from "@/lib/actions/user.action";
+import { getUserById } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import { ShippingAddress } from "@/types";
 import CheckoutSteps from "@/components/shared/checkout-steps";
@@ -115,7 +115,7 @@ const PlaceOrderPage = async () => {
           </Card>
         </div>
         <div>
-          <Card>
+          <Card className="mt-4 md:mt-0">
             <CardContent className="p-4 gap-4 space-y-4">
               <div className="flex justify-between">
                 <div>Items</div>

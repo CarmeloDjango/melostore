@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useTransition } from "react";
 import { shippingAddressSchema } from "@/lib/validators";
 import { shippingAddressDefaultValues } from "@/lib/constants";
-import { updateUserAddress } from "@/lib/actions/user.action";
+import { updateUserAddress } from "@/lib/actions/user.actions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ControllerRenderProps, useForm, SubmitHandler } from "react-hook-form";
@@ -40,7 +40,7 @@ const ShippingAddressForm = ({ address }: { address: ShippingAddress }) => {
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof shippingAddressSchema>> = async (
-    values
+    values,
   ) => {
     // values: react-hook-form에서 자동 부여
     startTransition(async () => {
