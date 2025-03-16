@@ -97,5 +97,6 @@ export async function createOrder() {
     if (isRedirectError(error)) {
       return { success: false, message: formatError(error) };
     }
+    return { success: false, message: "An unexpected error occurred." };
   }
 }
