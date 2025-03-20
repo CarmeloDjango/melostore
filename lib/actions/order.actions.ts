@@ -2,7 +2,7 @@
 
 // Create order and create the order items
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { formatError } from "@/lib/utils";
+import { convertToPlainObject, formatError } from "@/lib/utils";
 import { auth } from "@/auth";
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
@@ -13,12 +13,13 @@ import { CartItem } from "@/types";
 export async function createOrder() {
   try {
     const session = await auth();
-    if (!session) throw new Error("User is not authenticated");
+    if (!session)
+      return { success: false, message: "User is not authenticated" };
 
     const cart = await getMyCart();
 
     const userId = session?.user?.id;
-    if (!userId) throw new Error("User not found");
+    if (!userId) return { success: false, message: "User not found" };
 
     const user = await getUserById(userId);
 
@@ -86,7 +87,8 @@ export async function createOrder() {
       return insertedOrder.id;
     });
 
-    if (!insertedOrderId) throw new Error("Order not created");
+    if (!insertedOrderId)
+      return { success: false, message: "Order not created" };
 
     return {
       success: true,
@@ -99,4 +101,19 @@ export async function createOrder() {
     }
     return { success: false, message: "An unexpected error occurred." };
   }
+}
+
+// Get order by id
+export async function getOrderById(orderId: string) {
+  const data = await prisma.order.findFirst({
+    where: { id: orderId },
+    include: {
+      orderItems: true,
+      user: {
+        select: { name: true, email: true },
+      },
+    },
+  });
+
+  return convertToPlainObject(data);
 }
